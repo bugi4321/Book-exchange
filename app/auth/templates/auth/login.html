@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Prijava{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="mb-4 text-center">Prijava</h2>
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.email.label }}  
+            {{ form.email(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password.label }}
+            {{ form.password(class="form-control") }}
+        </div>
+
+        {{ form.submit(class="btn btn-success w-100") }}
+
+        <p style="margin-top: 15px; text-align: center;">
+    Nemaš račun?
+            <a href="{{ url_for('auth.register') }}">Registriraj se</a>
+        </p>
+
+    </form>
+</div>
+{% endblock %}

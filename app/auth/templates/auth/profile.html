@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Profil — {{ user.first_name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-lg p-4" style="max-width: 550px; width: 100%; border-radius: 20px;">
+
+        <!-- Header -->
+        <div class="text-center mb-4">
+            <i class="fa-solid fa-user-circle" style="font-size: 80px; color: #4a4a4a;"></i>
+            <h2 class="mt-3">{{ user.first_name }} {{ user.last_name }}</h2>
+            <p class="text-muted">{{ user.email }}</p>
+        </div>
+
+        <hr>
+
+        <!-- Info section -->
+        <div class="mt-4">
+            <h5>Osobni podaci</h5>
+            <ul class="list-group mt-2">
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Ime</span>
+                    <strong>{{ user.first_name }}</strong>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Prezime</span>
+                    <strong>{{ user.last_name }}</strong>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Email</span>
+                    <strong>{{ user.email }}</strong>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <!-- Actions -->
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{{ url_for('main.index') }}" class="btn btn-secondary w-45">Natrag</a>
+            <a href="{{ url_for('auth.logout') }}" class="btn btn-danger w-45">Odjavi se</a>
+            {% if current_user.id == user._id|string or current_user.role == "admin" %}
+            <form method="POST" action="{{ url_for('auth.delete_user', user_id=user._id) }}">
+                <button type="submit" class="btn btn-outline-danger w-100" onclick="return confirm('Jeste li sigurni da želite obrisati korisnika?');">
+                    Obriši korisnika
+                </button>
+            </form>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+

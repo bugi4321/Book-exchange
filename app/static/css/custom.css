@@ -1,0 +1,114 @@
+/* Smeđa tema */
+.bg-brown {
+    background-color: #553926 !important; 
+}
+body {
+    background-color: #FAEBD7 !important;
+}
+
+
+/* Wrapper koji sužava navbar */
+.navbar-wrapper {
+    max-width: 1400px;      /* Koliko širok želiš navbar */
+    margin: 0 auto;         /* Centriranje */
+    padding-top: 0;         
+}
+
+/* Sam navbar */
+.custom-navbar {
+    background-color: #5a3e2b;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Boje */
+.nav-link {
+    color: #f3e8dd !important;
+    font-size: 1.25rem !important;
+    padding: 10px 30px !important;
+}
+
+.nav-link:hover {
+    color: #fff !important;
+}
+
+/* Ikona */
+.navbar-brand i {
+    color: #f3e8dd;
+    font-size: 1.4rem;
+}
+
+
+
+/* Prijava button stil */
+.navbar .btn {
+    border: 2px solid #f3e8dd;     /* svijetli obrub */
+    background-color: transparent; /* prozirna pozadina */
+    color: #f3e8dd !important;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+/* Hover efekt */
+.navbar .btn:hover {
+    background-color: #f3e8dd;
+    color: #5a3e2b !important;     /* tamni tekst kad je hover */
+}
+
+
+/* HERO SECTION */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+                url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=60');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    border-bottom: 4px solid #5a3e2b;
+}
+
+/* FEATURE CARDS */
+.feature-card {
+    border: 2px solid #5a3e2b;
+    border-radius: 12px;
+    padding: 15px;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* BROWN BUTTON */
+.btn-brown {
+    background-color: #5a3e2b;
+    color: #f3d8b6;
+    border-radius: 8px;
+}
+
+.btn-brown:hover {
+    background-color: #704c36;
+    color: white;
+}
+/* vertikalni razdjelnici između linkova */
+.nav-divider {
+    position: relative;
+}
+
+.nav-divider::after {
+    content: "";
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.4); /* lagani bijeli rub */
+}
+
+/* makni liniju s posljednjeg elementa */
+.navbar-nav .nav-item:last-child::after {
+    display: none;
+}
+
+

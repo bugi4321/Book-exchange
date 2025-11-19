@@ -1,48 +1,58 @@
 {% extends "base.html" %}
-
-{% block title %}Početna - Book Sharing{% endblock %}
-
 {% block content %}
-    <div class="text-center">
-        <h1 class="mb-4">Dobrodošli na Book Sharing!</h1>
-        <p class="lead">Jednostavna platforma za razmjenu i dijeljenje knjiga među korisnicima.</p>
 
-        <hr class="my-4">
-
-        <div class="row mt-4">
-
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Pretraži knjige</h5>
-                        <p class="card-text">Pogledaj sve knjige koje korisnici nude za razmjenu.</p>
-                        <a href="#" class="btn btn-primary">Pogledaj knjige</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Dodaj novu knjigu</h5>
-                        <p class="card-text">Unesi knjigu koju želiš podijeliti s drugima.</p>
-                        <a href="#" class="btn btn-success">Dodaj knjigu</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">O nama</h5>
-                        <p class="card-text">Saznaj više o ovoj aplikaciji.</p>
-                        <a href="#" class="btn btn-secondary">O nama</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+<!-- HERO SECTION -->
+<section class="hero-section text-white text-center d-flex align-items-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Dobrodošli na Book Sharing</h1>
+        <p class="lead mt-3">Razmjenjujte knjige, povezujte se s čitateljima i otkrijte nove naslove.</p>
+        <a href="{{ url_for('main.books') }}" class="btn btn-light btn-lg mt-3 fw-bold">
+            Pretraži knjige
+        </a>
     </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<div class="container my-5">
+    <div class="row g-4">
+
+        <!-- CARD 1 -->
+        <div class="col-md-4">
+            <div class="card feature-card h-100">
+                <div class="card-body text-center">
+                    <h4 class="fw-bold">Pregled knjiga</h4>
+                    <p class="mt-2">Pretražite veliku kolekciju knjiga dostupnih za razmjenu.</p>
+                    <a href="{{ url_for('main.books') }}" class="btn btn-brown">Knjige</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="col-md-4">
+            <div class="card feature-card h-100">
+                <div class="card-body text-center">
+                    <h4 class="fw-bold">Dodaj svoju knjigu</h4>
+                    <p class="mt-2">Unesite svoju knjigu i omogućite drugima da je posude ili razmijene.</p>
+                    <a href="{{ url_for('books.create_book') }}" class="btn btn-brown">Dodaj knjigu</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="col-md-4">
+            <div class="card feature-card h-100">
+                <div class="card-body text-center">
+                    <h4 class="fw-bold">O nama</h4>
+                    <p class="mt-2">Saznajte više o projektu i našoj misiji širenja ljubavi prema čitanju.</p>
+                    <a href="{{ url_for('main.about') }}" class="btn btn-brown">O nama</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 {% endblock %}
+
 
 

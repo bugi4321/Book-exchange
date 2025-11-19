@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Dodaj knjigu{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="fw-bold text-center mb-4">Dodaj novi oglas</h2>
+
+    <form method="POST" enctype="multipart/form-data" 
+          class="p-4 shadow rounded" style="background:#f8f3ec;">
+        
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.title.label }}
+            {{ form.title(class="form-control", placeholder="Naslov knjige") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.author.label }}
+            {{ form.author(class="form-control", placeholder="Autor") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.description.label }}
+            {{ form.description(class="form-control", rows="4", placeholder="Opis") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.image.label }}
+            {{ form.image(class="form-control") }}
+        </div>
+
+        {{ form.submit(class="btn text-white w-100", style="background-color:#5a3e2b;") }}
+    </form>
+
+</div>
+{% endblock %}
+
+
+
