@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}404 - Stranica nije pronađena{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <div class="card shadow-lg p-5" style="max-width: 600px; margin: 0 auto;">
+        <i class="fa-solid fa-search text-warning" style="font-size: 80px;"></i>
+        <h1 class="mt-4 fw-bold">404</h1>
+        <h3 class="text-muted">Stranica nije pronađena</h3>
+        <p class="mt-3">Stranica koju tražite ne postoji ili je uklonjena.</p>
+        
+        <div class="mt-4">
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary me-2">
+                <i class="fa-solid fa-home"></i> Početna
+            </a>
+            <a href="javascript:history.back()" class="btn btn-secondary">
+                <i class="fa-solid fa-arrow-left"></i> Natrag
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

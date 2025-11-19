@@ -47,14 +47,21 @@
 
                             {% if current_user.is_authenticated %}
 
-                                {# Admin smije brisati sve, korisnik samo svoje #}
+                                {# Admin ili vlasnik mogu uređivati #}
                                 {% if current_user.role == "admin" 
                                       or current_user.id == book['owner_id'] %}
+
+                                    <a href="{{ url_for('books.edit_book', book_id=book['_id']) }}" 
+                                       class="btn btn-sm btn-warning">
+                                        <i class="fa-solid fa-edit"></i> Uredi
+                                    </a>
 
                                     <form method="POST" 
                                           action="{{ url_for('books.delete_book', book_id=book['_id']) }}"
                                           onsubmit="return confirm('Sigurno želiš obrisati ovu knjigu?');">
-                                        <button class="btn btn-sm btn-danger">Obriši</button>
+                                        <button class="btn btn-sm btn-danger">
+                                            <i class="fa-solid fa-trash"></i> Obriši
+                                        </button>
                                     </form>
 
                                 {% endif %}
@@ -73,5 +80,4 @@
 {% endif %}
 
 {% endblock %}
-
 

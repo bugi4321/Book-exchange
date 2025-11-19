@@ -6,11 +6,17 @@ from flask_mail import Mail
 from flask_login import UserMixin
 from flask import abort
 from flask_login import current_user
+from flask_principal import Principal, Permission, RoleNeed, identity_loaded, UserNeed
 
 mongo = PyMongo()
 login_manager = LoginManager()
 limiter = Limiter(key_func=get_remote_address)
 mail = Mail()
+principal = Principal()
+
+# Definiraj permisije
+admin_permission = Permission(RoleNeed('admin'))
+user_permission = Permission(RoleNeed('user'))
 
 class User(UserMixin):
     def __init__(self, user_dict):
