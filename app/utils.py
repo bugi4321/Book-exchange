@@ -4,14 +4,14 @@ from markdown.extensions.fenced_code import FencedCodeExtension
 from markdown.extensions.tables import TableExtension
 from markdown.extensions.nl2br import Nl2BrExtension
 
-# Dozvoljeni HTML tagovi nakon konverzije iz Markdowna
+
 ALLOWED_TAGS = [
     'p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
     'blockquote', 'code', 'pre', 'hr', 'ul', 'ol', 'li', 'a', 'img',
     'table', 'thead', 'tbody', 'tr', 'th', 'td'
 ]
 
-# Dozvoljeni atributi
+
 ALLOWED_ATTRIBUTES = {
     'a': ['href', 'title', 'target'],
     'img': ['src', 'alt', 'title'],
@@ -19,7 +19,7 @@ ALLOWED_ATTRIBUTES = {
     'pre': ['class']
 }
 
-# Dozvoljeni protokoli za linkove
+
 ALLOWED_PROTOCOLS = ['http', 'https', 'mailto']
 
 
@@ -40,24 +40,24 @@ def markdown_to_html(markdown_text):
     html = markdown.markdown(
         markdown_text,
         extensions=[
-            'extra',              # dodaje tabele, footnotes, itd.
-            'codehilite',         # syntax highlighting za kod
-            FencedCodeExtension(),  # ``` code blocks
-            TableExtension(),     # tabele
-            Nl2BrExtension()      # novi redovi → <br>
+            'extra',              
+            'codehilite',         
+            FencedCodeExtension(),  
+            TableExtension(),     
+            Nl2BrExtension()      
         ]
     )
     
-    # 2. Sanitizacija HTML-a (zaštita od XSS)
+    # 2. Sanitizacija HTML-a 
     clean_html = bleach.clean(
         html,
         tags=ALLOWED_TAGS,
         attributes=ALLOWED_ATTRIBUTES,
         protocols=ALLOWED_PROTOCOLS,
-        strip=True  # ukloni nedozvoljene tagove umjesto escapanja
+        strip=True  
     )
     
-    # 3. Linkovi se otvaraju u novom tabu
+    
     clean_html = bleach.linkify(
         clean_html,
         callbacks=[lambda attrs, new: attrs]
