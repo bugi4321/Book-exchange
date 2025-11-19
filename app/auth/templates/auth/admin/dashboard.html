@@ -14,6 +14,7 @@
                 <th>Prezime</th>
                 <th>Email</th>
                 <th>Uloga</th>
+                <th>Status</th> <!-- ← DODANO -->
                 <th>Akcije</th>
             </tr>
         </thead>
@@ -33,12 +34,24 @@
                     {% endif %}
                 </td>
 
+                <!-- ← DODANO: Email verification status -->
+                <td>
+                    {% if user.get('email_verified', False) %}
+                        <span class="badge bg-success">
+                            <i class="fa-solid fa-check-circle"></i> Verificiran
+                        </span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark">
+                            <i class="fa-solid fa-clock"></i> Neverificiran
+                        </span>
+                    {% endif %}
+                </td>
+
                 <td class="d-flex gap-2">
 
                     <!-- PROMJENA ULOGE -->
                     {% if user['role'] == "admin" %}
 
-                        {# Ako je ovaj korisnik jednako current_user i jedini je admin → nema gumba #}
                         {% if not (user['_id']|string == current_user.id and admin_count == 1) %}
                             <form method="POST"
                                   action="{{ url_for('auth.set_role', user_id=user['_id'], role='user') }}">

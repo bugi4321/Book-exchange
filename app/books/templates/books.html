@@ -29,21 +29,31 @@
                 <div class="card h-100 shadow-sm">
                     {% if book.image %}
                         <img src="{{ url_for('static', filename='uploads/' ~ book.image) }}"
-                            class="img-fluid rounded mb-2">
+                            class="img-fluid rounded mb-2"
+                            style="max-height: 250px; object-fit: cover;">
                     {% endif %}
 
                     <div class="card-body">
                         <h5 class="card-title">{{ book['title'] }}</h5>
-
-                        <p class="card-text">
-                            {{ book['description'] }}
+                        <p class="text-muted small mb-2">
+                            <i class="fa-solid fa-user"></i> {{ book['author'] }}
                         </p>
 
-                        <p class="text-muted small">
-                            Objavio: {{ book['first_name'] }}
+                        <!-- ← PROMIJENJENO: Kratki preview Markdown-a -->
+                        <div class="card-text book-description-preview">
+                            {{ book['description_html']|safe|truncate(150) }}
+                        </div>
+
+                        <a href="{{ url_for('books.book_detail', book_id=book['_id']) }}" 
+                           class="btn btn-sm btn-outline-primary mt-2">
+                            <i class="fa-solid fa-book-open"></i> Opširnije
+                        </a>
+
+                        <p class="text-muted small mt-3 mb-0">
+                            <i class="fa-solid fa-circle-user"></i> Objavio: {{ book['first_name'] }}
                         </p>
 
-                        <div class="d-flex gap-2">
+                        <div class="d-flex gap-2 mt-3">
 
                             {% if current_user.is_authenticated %}
 
@@ -78,6 +88,28 @@
     </div>
 
 {% endif %}
+
+<style>
+    /* Stil za preview Markdown-a */
+    .book-description-preview {
+        max-height: 120px;
+        overflow: hidden;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .book-description-preview p {
+        margin-bottom: 0.5rem;
+    }
+    
+    .book-description-preview strong {
+        font-weight: 600;
+    }
+    
+    .book-description-preview em {
+        font-style: italic;
+    }
+</style>
 
 {% endblock %}
 

@@ -7,5 +7,6 @@ class BookForm(FlaskForm):
     title = StringField("Naslov knjige", validators=[DataRequired()])
     author = StringField("Autor", validators=[DataRequired()])
     description = TextAreaField("Opis", validators=[DataRequired()])
+    # ← PROMIJENJENO: description će biti Markdown
     image = FileField("Slika knjige", validators=[FileAllowed(["jpg", "png", "jpeg"])])
     submit = SubmitField("Objavi knjigu")

@@ -22,7 +22,11 @@
 
         <div class="mb-3">
             {{ form.description.label }}
-            {{ form.description(class="form-control", rows="4", placeholder="Opis") }}
+            {{ form.description(class="form-control", id="markdown-editor", rows="10") }}
+            <small class="text-muted">
+                <i class="fa-solid fa-info-circle"></i> 
+                Podržava Markdown formatting (bold, italic, liste, linkove, itd.)
+            </small>
         </div>
 
         <div class="mb-3">
@@ -34,6 +38,56 @@
     </form>
 
 </div>
+
+<!-- EasyMDE CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/easymde/2.18.0/easymde.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/easymde/2.18.0/easymde.min.js"></script>
+
+<script>
+    // Inicijalizacija EasyMDE editora
+    const easyMDE = new EasyMDE({
+        element: document.getElementById('markdown-editor'),
+        spellChecker: false,
+        placeholder: "Unesite opis knjige... Možete koristiti Markdown formatiranje!",
+        status: ["lines", "words", "cursor"],
+        toolbar: [
+            "bold", "italic", "heading", "|",
+            "quote", "unordered-list", "ordered-list", "|",
+            "link", "image", "|",
+            "preview", "side-by-side", "fullscreen", "|",
+            "guide"
+        ],
+        previewRender: function(plainText) {
+            // Custom preview (opcionalno)
+            return this.parent.markdown(plainText);
+        }
+    });
+</script>
+
+<style>
+    /* Custom styling za EasyMDE */
+    .EasyMDEContainer {
+        border-radius: 8px;
+    }
+    
+    .CodeMirror {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        min-height: 300px;
+        font-size: 14px;
+    }
+    
+    .editor-toolbar {
+        border-radius: 8px 8px 0 0;
+        background: #f5f5f5;
+    }
+    
+    .editor-preview, .editor-preview-side {
+        background: #fff;
+        padding: 15px;
+    }
+</style>
+
 {% endblock %}
 
 

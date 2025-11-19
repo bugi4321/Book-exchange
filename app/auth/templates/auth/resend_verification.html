@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Ponovno slanje verifikacije{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 550px;">
+    
+    <div class="card shadow-lg">
+        <div class="card-body p-5">
+            
+            <!-- Ikona -->
+            <div class="text-center mb-4">
+                <i class="fa-solid fa-envelope-circle-check" style="font-size: 60px; color: #5a3e2b;"></i>
+            </div>
+
+            <!-- Naslov -->
+            <h2 class="mb-3 text-center">Ponovno slanje verifikacije</h2>
+            <p class="text-muted text-center mb-4">
+                Niste dobili verifikacijski email? Unesite svoju email adresu i poslat ćemo novi link.
+            </p>
+
+            <!-- Forma -->
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="email" class="form-label">
+                        <i class="fa-solid fa-at"></i> Email adresa
+                    </label>
+                    <input type="email" 
+                           class="form-control" 
+                           id="email" 
+                           name="email" 
+                           placeholder="vasemail@primjer.com"
+                           required>
+                    <small class="text-muted">
+                        Unesite email koji ste koristili za registraciju
+                    </small>
+                </div>
+
+                <button type="submit" class="btn text-white w-100" style="background-color: #5a3e2b;">
+                    <i class="fa-solid fa-paper-plane"></i> Pošalji novi link
+                </button>
+            </form>
+
+            <hr class="my-4">
+
+            <!-- Info sekcija -->
+            <div class="alert alert-info" role="alert">
+                <h6 class="alert-heading">
+                    <i class="fa-solid fa-circle-info"></i> Savjeti:
+                </h6>
+                <ul class="mb-0 ps-3">
+                    <li>Provjerite spam/junk folder</li>
+                    <li>Dodajte nas u kontakte</li>
+                    <li>Pričekajte nekoliko minuta</li>
+                    <li>Verifikacijski link vrijedi 1 sat</li>
+                </ul>
+            </div>
+
+            <!-- Povratak na login -->
+            <div class="text-center mt-4">
+                <a href="{{ url_for('auth.login') }}" class="text-decoration-none">
+                    <i class="fa-solid fa-arrow-left"></i> Natrag na prijavu
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

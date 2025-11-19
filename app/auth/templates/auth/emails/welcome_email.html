@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dobrodošli na Book Sharing!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .email-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .email-body {
+            padding: 40px 30px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .feature-list {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .feature-item {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        .feature-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #5a3e2b;
+            color: white !important;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .email-footer {
+            background-color: #f8f3ec;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="email-header">
+            <div class="success-icon">✅</div>
+            <h1>Email Verificiran!</h1>
+        </div>
+
+        <!-- Body -->
+        <div class="email-body">
+            <h2>Dobrodošli {{ user_name }}!</h2>
+            
+            <p>Čestitamo! Vaša email adresa je uspješno verificirana.</p>
+            
+            <p>Sada imate pristup svim funkcionalnostima <strong>Book Sharing</strong> platforme:</p>
+
+            <div class="feature-list">
+                <div class="feature-item">
+                    <strong>Dodavanje knjiga</strong> - Podijelite svoje knjige s drugima
+                </div>
+                <div class="feature-item">
+                    <strong>Pretraga knjiga</strong> - Pronađite knjige koje vas zanimaju
+                </div>
+                <div class="feature-item">
+                    <strong>Kontakt s korisnicima</strong> - Dogovorite razmjenu
+                </div>
+                <div class="feature-item">
+                    <strong>Upravljanje profilom</strong> - Prilagodite svoje postavke
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="{{ url_for('auth.login', _external=True) }}" class="cta-button">
+                    🚀 Prijavite se sada
+                </a>
+            </div>
+
+            <p>Ako imate bilo kakvih pitanja, slobodno nas kontaktirajte.</p>
+
+            <p style="margin-top: 30px;">
+                Sretno dijeljenje knjiga! 📚<br>
+                <strong>Book Sharing Tim</strong>
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="email-footer">
+            <p>Ovo je automatska poruka. Molimo ne odgovarajte na ovaj email.</p>
+            <p>&copy; 2024 Book Sharing. Sva prava pridržana.</p>
+        </div>
+    </div>
+</body>
+</html>

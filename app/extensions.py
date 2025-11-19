@@ -10,7 +10,15 @@ from flask_principal import Principal, Permission, RoleNeed, identity_loaded, Us
 
 mongo = PyMongo()
 login_manager = LoginManager()
-limiter = Limiter(key_func=get_remote_address)
+
+# ← PROMIJENJENO: Limiter s boljom konfiguracijom
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"],  # Globalni limiti
+    storage_uri="memory://",  # In-memory storage
+    strategy="fixed-window"  # Fixed window strategija
+)
+
 mail = Mail()
 principal = Principal()
 
