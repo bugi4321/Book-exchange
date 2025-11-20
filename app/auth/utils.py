@@ -3,27 +3,15 @@ from flask_mail import Message
 from itsdangerous import URLSafeTimedSerializer
 from flask import current_app
 from app.extensions import mail
-import secrets
+from threading import Thread
 
 
 def generate_verification_token(email):
-    """
-    Generira siguran token za email verifikaciju.
-    Token vrijedi 1 sat (3600 sekundi).
-    """
     serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
     return serializer.dumps(email, salt='email-verification-salt')
 
 
 def verify_token(token, max_age=3600):
-    """
-    Verificira token i vraća email ako je validan.
-    max_age: vrijeme trajanja tokena u sekundama (default 1 sat)
-    
-    Returns:
-        str: email ako je token validan
-        None: ako je token istekao ili nevažeći
-    """
     serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
     try:
         email = serializer.loads(
@@ -37,31 +25,30 @@ def verify_token(token, max_age=3600):
         return None
 
 
+def send_async_email(app, msg):
+    with app.app_context():
+        try:
+            mail.send(msg)
+            print(f"Email sent successfully")
+        except Exception as e:
+            print(f"Failed to send email: {e}")
+
+
 def send_verification_email(user_email, user_name):
-    """
-    Šalje verifikacijski email korisniku.
-    
-    Args:
-        user_email (str): Email adresa korisnika
-        user_name (str): Ime korisnika
-    """
     token = generate_verification_token(user_email)
     
-    # Generiraj verifikacijski link
     verify_url = url_for(
         'auth.verify_email',
         token=token,
         _external=True  
     )
     
-    # HTML verzija email-a
     html_body = render_template(
         'auth/emails/verify_email.html',
         user_name=user_name,
         verify_url=verify_url
     )
     
-    # Plain text verzija 
     text_body = f"""
     Pozdrav {user_name},
 
@@ -78,7 +65,6 @@ def send_verification_email(user_email, user_name):
     Book Sharing Tim
     """
     
-    # Kreiraj poruku
     msg = Message(
         subject="Potvrdite vašu email adresu - Book Sharing",
         recipients=[user_email],
@@ -86,19 +72,11 @@ def send_verification_email(user_email, user_name):
         html=html_body
     )
     
-    try:
-        mail.send(msg)
-        print(f"Verification email sent to {user_email}")
-        return True
-    except Exception as e:
-        print(f"Failed to send email: {e}")
-        return False
+    Thread(target=send_async_email, args=(current_app._get_current_object(), msg)).start()
+    return True
 
 
 def send_welcome_email(user_email, user_name):
-    """
-    Šalje welcome email nakon uspješne verifikacije.
-    """
     html_body = render_template(
         'auth/emails/welcome_email.html',
         user_name=user_name
@@ -125,9 +103,5 @@ def send_welcome_email(user_email, user_name):
         html=html_body
     )
     
-    try:
-        mail.send(msg)
-        return True
-    except Exception as e:
-        print(f"Failed to send welcome email: {e}")
-        return False
+    Thread(target=send_async_email, args=(current_app._get_current_object(), msg)).start()
+    return True
