@@ -14,7 +14,7 @@ from .utils import send_verification_email, verify_token, send_welcome_email
 #  REGISTER
 # -------------------
 @auth.route("/register", methods=["GET", "POST"])
-@limiter.limit("3 per minute")
+@limiter.limit("10 per minute")
 def register():
     form = RegisterForm()
 
@@ -25,7 +25,7 @@ def register():
             flash("Email već postoji!", "danger")
             return redirect(url_for("auth.register"))
 
-        hashed_password = generate_password_hash(form.password.data)
+        hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
 
         count_users = mongo.db.users.count_documents({})
         new_user = {
@@ -52,7 +52,7 @@ def register():
 #  LOGIN
 # -------------------
 @auth.route("/login", methods=["GET", "POST"])
-@limiter.limit("5 per minute")
+@limiter.limit("10 per minute")
 def login():
     form = LoginForm()
 
@@ -124,7 +124,7 @@ def verify_email(token):
 
 # ← DODANO: Resend verification email
 @auth.route("/resend-verification", methods=["GET", "POST"])
-@limiter.limit("3 per hour")  # Max 3 resenda po satu
+@limiter.limit("10 per hour")  # Max 3 resenda po satu
 def resend_verification():
     """
     Ponovno slanje verifikacijskog email-a.

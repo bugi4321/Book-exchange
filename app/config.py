@@ -31,6 +31,9 @@ class BaseConfig:
     ALLOWED_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
     MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # Max 5MB
 
+    # Za Render - brži password hashing
+    PREFERRED_URL_SCHEME = 'https'
+    BCRYPT_LOG_ROUNDS = 4
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
 
