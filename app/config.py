@@ -12,14 +12,14 @@ class BaseConfig:
     DEBUG = False
     MONGO_URI = os.getenv("MONGO_URI", "mongodb+srv://bugarijaluka_db_user:HoeXvu8o27vEcX4u@cluster0.tnyqcg2.mongodb.net/booksharing?appName=Cluster0")
     
-    # Email konfiguracija
-    MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp.gmail.com")
-    MAIL_PORT = int(os.getenv("MAIL_PORT", "587"))
+    # Email konfiguracija - SendGrid
+    MAIL_SERVER = "smtp.sendgrid.net"
+    MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
-    MAIL_USERNAME = os.getenv("MAIL_USERNAME")
-    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
-    MAIL_DEFAULT_SENDER = os.getenv("MAIL_DEFAULT_SENDER") or os.getenv("MAIL_USERNAME")
+    MAIL_USERNAME = "apikey"  
+    MAIL_PASSWORD = os.getenv("SENDGRID_API_KEY")
+    MAIL_DEFAULT_SENDER = os.getenv("MAIL_DEFAULT_SENDER", "bugarija.luka@gmail.com")
     
     # Flask-Limiter defaults
     RATELIMIT_HEADERS_ENABLED = True
@@ -34,15 +34,16 @@ class BaseConfig:
     # Za Render - brži password hashing
     PREFERRED_URL_SCHEME = 'https'
     BCRYPT_LOG_ROUNDS = 4
+
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
 
 class ProductionConfig(BaseConfig):
     DEBUG = False
-    # Production-specific settings
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'Lax'
+
 
 
 
