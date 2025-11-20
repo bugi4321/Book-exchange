@@ -35,6 +35,7 @@ def send_async_email(app, msg):
 
 
 def send_verification_email(user_email, user_name):
+    print(f"[DEBUG] Starting email verification for {user_email}")
     token = generate_verification_token(user_email)
     
     verify_url = url_for(
@@ -71,8 +72,9 @@ def send_verification_email(user_email, user_name):
         body=text_body,
         html=html_body
     )
-    
+    print(f"[DEBUG] Starting thread for email to {user_email}")
     Thread(target=send_async_email, args=(current_app._get_current_object(), msg)).start()
+    print(f"[DEBUG] Thread started for {user_email}")
     return True
 
 
