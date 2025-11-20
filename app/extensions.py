@@ -14,7 +14,7 @@ login_manager = LoginManager()
 
 limiter = Limiter(
     key_func=get_remote_address,
-    default_limits=["200 per day", "50 per hour"],  
+    default_limits=[],  
     storage_uri="memory://",  
     strategy="fixed-window"  
 )
