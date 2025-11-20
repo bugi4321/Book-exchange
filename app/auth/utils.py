@@ -3,7 +3,6 @@ from flask_mail import Message
 from itsdangerous import URLSafeTimedSerializer
 from flask import current_app
 from app.extensions import mail
-from threading import Thread
 
 
 def generate_verification_token(email):
@@ -23,15 +22,6 @@ def verify_token(token, max_age=3600):
     except Exception as e:
         print(f"Token verification failed: {e}")
         return None
-
-
-def send_async_email(app, msg):
-    with app.app_context():
-        try:
-            mail.send(msg)
-            print(f"Email sent successfully")
-        except Exception as e:
-            print(f"Failed to send email: {e}")
 
 
 def send_verification_email(user_email, user_name):
@@ -72,10 +62,15 @@ def send_verification_email(user_email, user_name):
         body=text_body,
         html=html_body
     )
-    print(f"[DEBUG] Starting thread for email to {user_email}")
-    Thread(target=send_async_email, args=(current_app._get_current_object(), msg)).start()
-    print(f"[DEBUG] Thread started for {user_email}")
-    return True
+    
+    try:
+        print(f"[DEBUG] Sending email to {user_email}")
+        mail.send(msg)
+        print(f"[DEBUG] Email sent successfully to {user_email}")
+        return True
+    except Exception as e:
+        print(f"[DEBUG] Failed to send email: {e}")
+        return False
 
 
 def send_welcome_email(user_email, user_name):
@@ -105,5 +100,10 @@ def send_welcome_email(user_email, user_name):
         html=html_body
     )
     
-    Thread(target=send_async_email, args=(current_app._get_current_object(), msg)).start()
-    return True
+    try:
+        mail.send(msg)
+        print(f"[DEBUG] Welcome email sent to {user_email}")
+        return True
+    except Exception as e:
+        print(f"[DEBUG] Failed to send welcome email: {e}")
+        return False
