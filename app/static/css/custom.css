@@ -1,4 +1,4 @@
-/* Smeđa tema */
+
 .bg-brown {
     background-color: #553926 !important; 
 }
@@ -7,14 +7,14 @@ body {
 }
 
 
-/* Wrapper koji sužava navbar */
+
 .navbar-wrapper {
-    max-width: 1400px;      /* Koliko širok želiš navbar */
-    margin: 0 auto;         /* Centriranje */
+    max-width: 1400px;      
+    margin: 0 auto;         
     padding-top: 0;         
 }
 
-/* Sam navbar */
+/*  navbar */
 .custom-navbar {
     background-color: #5a3e2b;
     border-radius: 0 0 10px 10px;
@@ -49,7 +49,7 @@ body {
     transition: 0.3s ease;
 }
 
-/* Hover efekt */
+
 .navbar .btn:hover {
     background-color: #f3e8dd;
     color: #5a3e2b !important;     /* tamni tekst kad je hover */
@@ -79,7 +79,7 @@ body {
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
-/* BROWN BUTTON */
+
 .btn-brown {
     background-color: #5a3e2b;
     color: #f3d8b6;
@@ -90,7 +90,7 @@ body {
     background-color: #704c36;
     color: white;
 }
-/* vertikalni razdjelnici između linkova */
+
 .nav-divider {
     position: relative;
 }
@@ -103,10 +103,10 @@ body {
     transform: translateY(-50%);
     width: 1px;
     height: 30px;
-    background-color: rgba(255, 255, 255, 0.4); /* lagani bijeli rub */
+    background-color: rgba(255, 255, 255, 0.4); 
 }
 
-/* makni liniju s posljednjeg elementa */
+
 .navbar-nav .nav-item:last-child::after {
     display: none;
 }

@@ -20,46 +20,46 @@ def allowed_image(filename):
     return ext in current_app.config["ALLOWED_IMAGE_EXTENSIONS"]
 
 
-# ➤ Prikaz svih oglasa (SA PRETRAGOM I PAGINACIJOM)
+#  Prikaz svih oglasa (SA PRETRAGOM I PAGINACIJOM)
 @books_bp.route("/")
 def list_books():
-    # Parametri za pretragu
+    
     search_query = request.args.get('search', '').strip()
     author_filter = request.args.get('author', '').strip()
     
-    # Parametri za paginaciju
-    page = request.args.get('page', 1, type=int)
-    per_page = 9  # 9 knjiga po stranici (3x3 grid)
     
-    # Kreiraj MongoDB query
+    page = request.args.get('page', 1, type=int)
+    per_page = 9  
+    
+    
     query = {}
     
     if search_query:
-        # Pretraga po naslovu (case-insensitive)
+        
         query["title"] = {"$regex": search_query, "$options": "i"}
     
     if author_filter:
-        # Filtriranje po autoru (case-insensitive)
+        
         query["author"] = {"$regex": author_filter, "$options": "i"}
     
     # Ukupan broj knjiga (za paginaciju)
     total_books = mongo.db.books.count_documents(query)
-    total_pages = (total_books + per_page - 1) // per_page  # Ceiling division
+    total_pages = (total_books + per_page - 1) // per_page  
     
     # Dohvati knjige s paginacijom
     books = list(
         mongo.db.books.find(query)
-        .sort("created_at", -1)  # Najnovije prvo
+        .sort("created_at", -1) 
         .skip((page - 1) * per_page)
         .limit(per_page)
     )
     
-    # Konverzija Markdown → HTML za sve knjige
+    # Konverzija Markdown → HTML 
     for book in books:
         if book.get("description"):
             book["description_html"] = markdown_to_html(book["description"])
     
-    # Dohvati sve jedinstvene autore za filter dropdown
+    
     all_authors = mongo.db.books.distinct("author")
     
     return render_template(
@@ -70,22 +70,22 @@ def list_books():
         total_books=total_books,
         search_query=search_query,
         author_filter=author_filter,
-        all_authors=sorted(all_authors)  # Sortirano alfabetski
+        all_authors=sorted(all_authors)  
     )
 
 
-# ➤ "MOJE KNJIGE" STRANICA
+# MOJE KNJIGE STRANICA
 @books_bp.route("/my-books")
 @login_required
 def my_books():
-    # Parametri za pretragu
+    
     search_query = request.args.get('search', '').strip()
     
-    # Parametri za paginaciju
+    
     page = request.args.get('page', 1, type=int)
     per_page = 9
     
-    # Query - samo knjige trenutnog korisnika
+    
     query = {"owner_id": current_user.id}
     
     if search_query:
@@ -118,7 +118,7 @@ def my_books():
     )
 
 
-# ➤ Kreiranje oglasa
+#  Kreiranje oglasa
 @books_bp.route("/create", methods=["GET", "POST"])
 @login_required
 @limiter.limit("10 per hour")
@@ -163,7 +163,7 @@ def create_book():
     return render_template("add_book.html", form=form)
 
 
-# ➤ Brisanje oglasa
+#  Brisanje oglasa
 @books_bp.route("/delete/<book_id>", methods=["POST"])
 @login_required
 @limiter.limit("20 per hour")
@@ -185,7 +185,7 @@ def delete_book(book_id):
     return redirect(url_for("books.list_books"))
 
 
-# ➤ Uređivanje oglasa
+# Uređivanje oglasa
 @books_bp.route("/edit/<book_id>", methods=["GET", "POST"])
 @login_required
 @limiter.limit("20 per hour")
@@ -249,7 +249,7 @@ def edit_book(book_id):
     return render_template("edit_book.html", form=form, book=book)
 
 
-# ➤ Detalji knjige
+#  Detalji knjige
 @books_bp.route("/book/<book_id>")
 def book_detail(book_id):
     book = mongo.db.books.find_one({"_id": ObjectId(book_id)})

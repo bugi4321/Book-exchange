@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Učitaj .env prije svega!
+
 load_dotenv()
 
 basedir = Path(__file__).resolve().parent
@@ -29,7 +29,7 @@ class BaseConfig:
     # Upload slika
     UPLOAD_FOLDER = os.path.join("app", "static", "uploads")
     ALLOWED_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
-    MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # Max 5MB
+    MAX_CONTENT_LENGTH = 5 * 1024 * 1024  
 
     # Za Render - brži password hashing
     PREFERRED_URL_SCHEME = 'https'

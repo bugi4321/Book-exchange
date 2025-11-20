@@ -51,7 +51,7 @@ def send_verification_email(user_email, user_name):
     verify_url = url_for(
         'auth.verify_email',
         token=token,
-        _external=True  # Puni URL (https://...)
+        _external=True  
     )
     
     # HTML verzija email-a
@@ -61,7 +61,7 @@ def send_verification_email(user_email, user_name):
         verify_url=verify_url
     )
     
-    # Plain text verzija (fallback)
+    # Plain text verzija 
     text_body = f"""
     Pozdrav {user_name},
 

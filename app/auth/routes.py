@@ -19,7 +19,7 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        # postoji li email?
+        
         existing = mongo.db.users.find_one({"email": form.email.data})
         if existing:
             flash("Email već postoji!", "danger")
@@ -33,13 +33,13 @@ def register():
             "last_name": form.last_name.data,
             "email": form.email.data,
             "password": hashed_password,
-            "email_verified": False,  # ← VAŽNO: Početno neverificirano
+            "email_verified": False,  
             "role": "admin" if count_users == 0 else "user"
         }
 
         user_id = mongo.db.users.insert_one(new_user).inserted_id
 
-        # ← DODANO: Pošalji verifikacijski email
+        #  Pošalji verifikacijski email
         send_verification_email(form.email.data, form.first_name.data)
 
         flash("Uspješna registracija! Provjerite email za verifikaciju.", "success")
@@ -63,12 +63,12 @@ def login():
             flash("Neispravan email ili lozinka!", "danger")
             return redirect(url_for("auth.login"))
 
-        # ← DODANO: Provjera email verifikacije
+        # Provjera email verifikacije
         if not user.get("email_verified", False):
             flash("Molimo verificirajte email prije prijave. Provjerite inbox!", "warning")
             return redirect(url_for("auth.login"))
 
-        # Koristi pravu klasu User
+        
         user_obj = User(user)
         login_user(user_obj)
         
@@ -85,7 +85,7 @@ def login():
     return render_template("auth/login.html", form=form)
 
 
-# ← DODANO: Verify email ruta
+#  Verify email ruta
 @auth.route("/verify-email/<token>")
 def verify_email(token):
     """
@@ -97,7 +97,7 @@ def verify_email(token):
         flash("Verifikacijski link je nevažeći ili je istekao!", "danger")
         return redirect(url_for("auth.login"))
     
-    # Pronađi korisnika
+    
     user = mongo.db.users.find_one({"email": email})
     
     if not user:
@@ -122,9 +122,9 @@ def verify_email(token):
     return redirect(url_for("auth.login"))
 
 
-# ← DODANO: Resend verification email
+#  Resend verification email
 @auth.route("/resend-verification", methods=["GET", "POST"])
-@limiter.limit("10 per hour")  # Max 3 resenda po satu
+@limiter.limit("10 per hour")  
 def resend_verification():
     """
     Ponovno slanje verifikacijskog email-a.
@@ -139,7 +139,7 @@ def resend_verification():
         user = mongo.db.users.find_one({"email": email})
         
         if not user:
-            # Ne otkrivaj postoji li email (sigurnost)
+            
             flash("Ako email postoji u sustavu, poslan je verifikacijski link.", "info")
             return redirect(url_for("auth.login"))
         

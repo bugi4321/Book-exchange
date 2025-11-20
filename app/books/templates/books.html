@@ -39,7 +39,7 @@
                             <i class="fa-solid fa-user"></i> {{ book['author'] }}
                         </p>
 
-                        <!-- ← PROMIJENJENO: Kratki preview Markdown-a -->
+                        
                         <div class="card-text book-description-preview">
                             {{ book['description_html']|safe|truncate(150) }}
                         </div>
@@ -90,7 +90,7 @@
 {% endif %}
 
 <style>
-    /* Stil za preview Markdown-a */
+    
     .book-description-preview {
         max-height: 120px;
         overflow: hidden;

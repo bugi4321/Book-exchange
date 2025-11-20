@@ -57,7 +57,7 @@
                 {% endif %}
             </div>
 
-            <!-- Akcije (uredi/obriši) -->
+            <!-- Akcije  -->
             {% if current_user.is_authenticated %}
                 {% if current_user.role == "admin" or current_user.id == book.owner_id %}
                 <div class="d-flex gap-2 mt-4">
@@ -82,7 +82,7 @@
 </div>
 
 <style>
-    /* Stil za full Markdown prikaz */
+    
     .book-description-full {
         line-height: 1.8;
         font-size: 1.05rem;

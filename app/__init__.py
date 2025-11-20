@@ -36,7 +36,7 @@ def create_app():
     # Dozvoljene ekstenzije slika
     app.config["ALLOWED_EXTENSIONS"] = {"png", "jpg", "jpeg", "gif"}
     
-    # ← DODANO: Rate limiter konfiguracija
+    #  Rate limiter konfiguracija
     app.config["RATELIMIT_STORAGE_URL"] = "memory://"  # In-memory storage
     app.config["RATELIMIT_STRATEGY"] = "fixed-window"
     app.config["RATELIMIT_HEADERS_ENABLED"] = True  # Prikaži rate limit headere
@@ -66,7 +66,7 @@ def create_app():
         if hasattr(current_user, 'role'):
             identity.provides.add(RoleNeed(current_user.role))
 
-    # ← DODANO: Custom Rate Limit Error Handler
+    # Custom Rate Limit Error Handler
     @app.errorhandler(429)
     def ratelimit_handler(e):
         return render_template('errors/429.html', error=e), 429

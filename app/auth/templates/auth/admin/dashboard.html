@@ -14,7 +14,7 @@
                 <th>Prezime</th>
                 <th>Email</th>
                 <th>Uloga</th>
-                <th>Status</th> <!-- ← DODANO -->
+                <th>Status</th> 
                 <th>Akcije</th>
             </tr>
         </thead>
@@ -34,7 +34,7 @@
                     {% endif %}
                 </td>
 
-                <!-- ← DODANO: Email verification status -->
+                <!--  Email verification status -->
                 <td>
                     {% if user.get('email_verified', False) %}
                         <span class="badge bg-success">
